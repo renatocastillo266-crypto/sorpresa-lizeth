@@ -1,287 +1,264 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Un Jardín para Lizeth</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #fffde7 0%, #fff9c4 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Arial', sans-serif;
-            overflow-x: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Lizeth 🌻🌻 </title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  font-family:Arial,sans-serif;
+  background:
+    radial-gradient(circle at 50% 20%,rgba(255,255,210,.9),transparent 35%),
+    linear-gradient(180deg,#fff9c4 0%,#fffde7 45%,#d7f0bc 100%);
+}
+.scene{position:relative;width:100%;height:100vh;overflow:hidden;perspective:1100px}
+.sun{
+  position:absolute;width:145px;height:145px;border-radius:50%;top:5%;right:7%;
+  background:radial-gradient(circle,#fff59d 0 30%,#ffd54f 65%,#ffb300 100%);
+  box-shadow:0 0 35px #ffd54f,0 0 90px rgba(255,193,7,.5);
+  animation:pulse 4s ease-in-out infinite;
+}
+.cloud{position:absolute;width:125px;height:36px;border-radius:50px;background:rgba(255,255,255,.72);top:14%;left:7%}
+.cloud:before,.cloud:after{content:"";position:absolute;background:inherit;border-radius:50%}
+.cloud:before{width:60px;height:60px;left:18px;top:-28px}
+.cloud:after{width:75px;height:75px;right:8px;top:-42px}
+.cloud.c2{left:auto;right:25%;top:26%;transform:scale(.65);opacity:.65}
 
-        .contenedor {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
-            max-width: 500px;
-            padding: 20px;
-            box-sizing: border-box;
-            z-index: 2;
-        }
+.titulo{
+  position:absolute;z-index:40;top:6%;left:50%;width:92%;
+  transform:translateX(-50%);text-align:center;
+  color:#f2a900;font-size:clamp(25px,6vw,40px);font-weight:800;
+  text-shadow:0 3px #fff,0 0 18px rgba(255,193,7,.45);
+}
+.subtitulo{
+  position:absolute;z-index:40;top:14.5%;left:50%;width:90%;
+  transform:translateX(-50%);text-align:center;color:#795548;font-size:14px;
+}
+.pradera{
+  position:absolute;left:-10%;bottom:-12%;width:120%;height:52%;
+  background:linear-gradient(180deg,#9ccc65,#5b9f42 60%,#39793b);
+  border-radius:50% 50% 0 0/20% 20% 0 0;
+  box-shadow:0 -20px 50px rgba(61,105,40,.18);
+}
+.pradera:after{
+  content:"";position:absolute;inset:0;opacity:.5;
+  background-image:
+    radial-gradient(circle,#fff7a8 0 2px,transparent 3px),
+    radial-gradient(circle,#ffffff 0 1.5px,transparent 2.5px);
+  background-size:90px 70px,125px 95px;
+}
 
-        h1 {
-            color: #f57c00;
-            font-size: 26px;
-            margin: 0;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-            animation: latido 2s infinite;
-        }
+.jardin{
+  position:absolute;z-index:15;left:50%;bottom:10%;
+  width:min(780px,100vw);height:57%;
+  transform:translateX(-50%) rotateX(4deg);
+  transform-style:preserve-3d;
+}
+.flor{
+  position:absolute;width:105px;height:270px;cursor:pointer;
+  transform-style:preserve-3d;
+  animation:sway 4s ease-in-out infinite;
+  transition:.35s;
+}
+.flor:hover{filter:drop-shadow(0 0 20px rgba(255,213,79,.95))}
+.f1{left:2%;bottom:0;transform:scale(.72) rotate(-7deg)}
+.f2{left:13%;bottom:6%;transform:scale(.9) rotate(-3deg);animation-delay:-1s}
+.f3{left:28%;bottom:-2%;transform:scale(1.08);animation-delay:-2s}
+.f4{left:43%;bottom:10%;transform:scale(.72);animation-delay:-.4s}
+.f5{right:28%;bottom:-1%;transform:scale(1.12);animation-delay:-1.5s}
+.f6{right:13%;bottom:7%;transform:scale(.88) rotate(4deg);animation-delay:-2.4s}
+.f7{right:2%;bottom:0;transform:scale(.7) rotate(7deg);animation-delay:-3s}
+.f8{left:37%;bottom:20%;transform:scale(.55);opacity:.92;animation-delay:-2.8s}
+.f9{right:37%;bottom:22%;transform:scale(.52);opacity:.92;animation-delay:-3.6s}
 
-        /* JARDÍN DE FLORES */
-        .jardin {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            gap: 40px;
-            height: 280px;
-            margin-top: 30px;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
+.cabeza{
+  position:absolute;left:50%;top:0;width:100px;height:100px;
+  transform:translateX(-50%) translateZ(25px);
+  transform-style:preserve-3d;
+}
+.petalo{
+  position:absolute;left:30px;top:28px;width:40px;height:67px;
+  border-radius:52% 52% 48% 48%;
+  background:linear-gradient(145deg,#fff59d 0%,#ffeb3b 38%,#ffc107 78%,#f9a825 100%);
+  border:1px solid rgba(224,150,0,.5);
+  box-shadow:inset -6px -8px 9px rgba(150,90,0,.12),0 5px 9px rgba(100,65,0,.16);
+  transform-origin:50% 80%;
+}
+.p1{transform:rotate(0) translateY(-32px)}
+.p2{transform:rotate(45deg) translateY(-32px)}
+.p3{transform:rotate(90deg) translateY(-32px)}
+.p4{transform:rotate(135deg) translateY(-32px)}
+.p5{transform:rotate(180deg) translateY(-32px)}
+.p6{transform:rotate(225deg) translateY(-32px)}
+.p7{transform:rotate(270deg) translateY(-32px)}
+.p8{transform:rotate(315deg) translateY(-32px)}
+.centro{
+  position:absolute;z-index:5;left:27px;top:27px;width:46px;height:46px;border-radius:50%;
+  background:radial-gradient(circle at 32% 25%,#ffcf70 0 8%,#a9570a 38%,#542707 100%);
+  box-shadow:inset 4px 5px 9px rgba(255,255,255,.25),0 5px 10px rgba(70,40,0,.3);
+  transform:translateZ(32px);
+}
+.semillas{
+  position:absolute;inset:5px;border-radius:50%;
+  background-image:radial-gradient(#ffd54f 1px,transparent 1.5px);
+  background-size:7px 7px;opacity:.7;
+}
+.tallo{
+  position:absolute;left:50%;top:80px;width:11px;height:190px;
+  transform:translateX(-50%) translateZ(-10px);
+  background:linear-gradient(90deg,#27682d,#68ba4e,#2d7b31);
+  border-radius:10px;box-shadow:3px 0 5px rgba(0,0,0,.16);
+}
+.hoja{
+  position:absolute;width:70px;height:31px;border-radius:100% 0 100% 0;
+  background:linear-gradient(135deg,#7acb52,#2e7d32);
+  box-shadow:inset -5px -4px 8px rgba(0,0,0,.13);
+}
+.h1{top:65px;left:-62px;transform:rotate(-20deg)}
+.h2{top:112px;left:4px;transform:scaleX(-1) rotate(-18deg)}
+.sombra{
+  position:absolute;left:50%;bottom:0;width:120px;height:22px;transform:translateX(-50%);
+  border-radius:50%;background:rgba(35,75,28,.3);filter:blur(5px);
+}
 
-        /* Flor Elaborada Individual */
-        .flor-completa {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transform-origin: bottom center;
-        }
+.carta{
+  position:absolute;z-index:100;left:50%;top:51%;width:min(88%,410px);
+  padding:25px 23px;text-align:center;
+  background:rgba(255,255,255,.95);border:2px solid #fbc02d;border-radius:25px;
+  box-shadow:0 22px 75px rgba(75,50,10,.3),inset 0 0 28px rgba(255,213,79,.15);
+  backdrop-filter:blur(10px);
+  transform:translate(-50%,-45%) scale(.55);opacity:0;pointer-events:none;
+}
+.carta.visible{animation:entrada .75s cubic-bezier(.2,1.35,.4,1) forwards;pointer-events:auto}
+.carta .flor-icon{font-size:45px}
+.carta p{font-size:18px;line-height:1.55;color:#5d4037;margin:10px 0 0}
+.carta small{display:block;color:#a06b20;margin-top:13px;font-size:13px}
 
-        .flor-completa:nth-child(1) { animation: balanceo 4s ease-in-out infinite; }
-        .flor-completa:nth-child(2) { animation: balanceo 3.5s ease-in-out infinite reverse; transform: scale(1.1); }
-        .flor-completa:nth-child(3) { animation: balanceo 4.5s ease-in-out infinite; transform: scale(0.9); }
+.corazon{
+  position:absolute;z-index:35;font-size:20px;pointer-events:none;
+  animation:subir 5s linear forwards;
+}
+.brillo{
+  position:absolute;z-index:25;width:7px;height:7px;border-radius:50%;
+  background:#fff9a6;box-shadow:0 0 12px #ffd54f;pointer-events:none;
+  animation:brillar 4s linear forwards;
+}
+.petalo-caido{
+  position:absolute;z-index:20;font-size:17px;pointer-events:none;
+  animation:caer 5s linear forwards;
+}
 
-        .cabeza-flor {
-            position: relative;
-            width: 80px;
-            height: 80px;
-            transition: transform 0.3s ease;
-        }
+.musica{
+  position:absolute;z-index:110;right:14px;bottom:14px;
+  border:1px solid rgba(180,130,20,.3);background:rgba(255,255,255,.82);
+  color:#795548;border-radius:999px;padding:9px 13px;cursor:pointer;
+  backdrop-filter:blur(6px);font-size:12px;
+}
+.hint{
+  position:absolute;z-index:40;bottom:4%;left:50%;transform:translateX(-50%);
+  color:#fff;font-size:13px;text-shadow:0 2px 5px #31552c;white-space:nowrap;
+}
+@keyframes sway{0%,100%{rotate:0deg}50%{rotate:2.2deg}}
+@keyframes pulse{50%{transform:scale(1.06);box-shadow:0 0 60px #ffd54f,0 0 110px rgba(255,193,7,.55)}}
+@keyframes entrada{to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes subir{0%{transform:translateY(0) scale(.7);opacity:0}15%{opacity:1}100%{transform:translateY(-55vh) translateX(70px) scale(1.15);opacity:0}}
+@keyframes brillar{0%{opacity:0;transform:scale(.5)}20%{opacity:1}100%{opacity:0;transform:translateY(-45vh) translateX(50px) scale(1.2)}}
+@keyframes caer{0%{opacity:1;transform:translateY(-10px) rotate(0)}100%{opacity:0;transform:translateY(55vh) translateX(90px) rotate(360deg)}}
 
-        .jardin:hover .cabeza-flor {
-            transform: rotate(15deg) scale(1.05);
-        }
-
-        .centro {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 40px;
-            height: 40px;
-            background: radial-gradient(circle, #ff6f00 0%, #e65100 100%);
-            border-radius: 50%;
-            z-index: 10;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
-
-        /* Pétalos con degradados y sombras 3D */
-        .petalo {
-            position: absolute;
-            background: linear-gradient(to bottom, #ffee58 0%, #fbc02d 100%);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            width: 30px;
-            height: 55px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-        }
-
-        .p1 { top: -25px; left: 25px; }
-        .p2 { top: -5px; right: -5px; transform: rotate(45deg); }
-        .p3 { top: 25px; right: -15px; transform: rotate(90deg); }
-        .p4 { bottom: -5px; right: -5px; transform: rotate(135deg); }
-        .p5 { bottom: -25px; left: 25px; transform: rotate(180deg); }
-        .p6 { bottom: -5px; left: -5px; transform: rotate(225deg); }
-        .p7 { top: 25px; left: -15px; transform: rotate(270deg); }
-        .p8 { top: -5px; left: -5px; transform: rotate(315deg); }
-
-        .tallo {
-            width: 8px;
-            height: 160px;
-            background: linear-gradient(to right, #4caf50, #388e3c);
-            border-radius: 4px;
-            margin-top: -10px;
-            position: relative;
-            z-index: 1;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-        }
-
-        .hoja {
-            position: absolute;
-            background: linear-gradient(to bottom, #81c784, #4caf50);
-            width: 35px;
-            height: 18px;
-            border-radius: 50% 0 50% 0;
-            box-shadow: 1px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .hoja-izq { top: 50px; left: -30px; transform: rotate(-15deg); }
-        .hoja-der { top: 80px; right: -30px; transform: rotate(195deg); }
-
-        /* TARJETA DE MENSAJE ELEGANTE */
-        .tarjeta-mensaje {
-            display: none;
-            background: white;
-            padding: 25px;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(245, 124, 0, 0.15);
-            width: 90%;
-            max-width: 320px;
-            border: 2px solid #fff176;
-            animation: superAparecer 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        .tarjeta-mensaje p {
-            color: #5d4037;
-            font-size: 18px;
-            line-height: 1.6;
-            margin: 0;
-            font-style: italic;
-            font-weight: bold;
-        }
-
-        /* EFECTO DE PARTÍCULAS VOLANDO */
-        .particula {
-            position: absolute;
-            pointer-events: none;
-            z-index: 5;
-            animation: lluvia 2.5s linear forwards;
-        }
-
-        /* ANIMACIONES */
-        @keyframes balanceo {
-            0%, 100% { transform: rotate(-3deg); }
-            50% { transform: rotate(3deg); }
-        }
-
-        @keyframes latido {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-        }
-
-        @keyframes superAparecer {
-            from { opacity: 0; transform: scale(0.5) translateY(30px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        @keyframes lluvia {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-        }
-    </style>
+@media(max-width:600px){
+  .sun{width:95px;height:95px;right:-5%;top:6%}
+  .titulo{top:5%;font-size:28px}.subtitulo{top:13%}
+  .jardin{bottom:12%;height:54%;transform:translateX(-50%) scale(.78)}
+  .pradera{height:44%}
+  .carta{padding:22px 18px}.carta p{font-size:16px}
+  .hint{bottom:3%;font-size:12px}
+}
+</style>
 </head>
 <body>
+<div class="scene" id="scene">
+  <div class="sun"></div>
+  <div class="cloud"></div><div class="cloud c2"></div>
 
+  <div class="titulo" id="titulo">¡Para Lizeth! 🌻🌻</div>
+  <div class="subtitulo">Toca una flor amarilla... tengo algo para ti 🌻✨</div>
+  <div class="pradera"></div>
 
-    <!-- Música: se inicia al tocar las flores -->
-    <audio id="musica" loop preload="auto">
-        <source src="flores-amarillas.mp3" type="audio/mpeg">
-    </audio>
+  <div class="jardin">
+    <div class="flor f1" onclick="sorpresa(this)"><div class="cabeza"><i class="petalo p1"></i><i class="petalo p2"></i><i class="petalo p3"></i><i class="petalo p4"></i><i class="petalo p5"></i><i class="petalo p6"></i><i class="petalo p7"></i><i class="petalo p8"></i><i class="centro"><i class="semillas"></i></i></div><div class="tallo"><i class="hoja h1"></i><i class="hoja h2"></i></div><div class="sombra"></div></div>
+    <div class="flor f2" onclick="sorpresa(this)"><div class="cabeza"><i class="petalo p1"></i><i class="petalo p2"></i><i class="petalo p3"></i><i class="petalo p4"></i><i class="petalo p5"></i><i class="petalo p6"></i><i class="petalo p7"></i><i class="petalo p8"></i><i class="centro"><i class="semillas"></i></i></div><div class="tallo"><i class="hoja h1"></i><i class="hoja h2"></i></div><div class="sombra"></div></div>
+    <div class="flor f3" onclick="sorpresa(this)"><div class="cabeza"><i class="petalo p1"></i><i class="petalo p2"></i><i class="petalo p3"></i><i class="petalo p4"></i><i class="petalo p5"></i><i class="petalo p6"></i><i class="petalo p7"></i><i class="petalo p8"></i><i class="centro"><i class="semillas"></i></i></div><div class="tallo"><i class="hoja h1"></i><i class="hoja h2"></i></div><div class="sombra"></div></div>
+    <div class="flor f4" onclick="sorpresa(this)"><div class="cabeza"><i class="petalo p1"></i><i class="petalo p2"></i><i class="petalo p3"></i><i class="petalo p4"></i><i class="petalo p5"></i><i class="petalo p6"></i><i class="petalo p7"></i><i class="petalo p8"></i><i class="centro"><i class="semillas"></i></i></div><div class="tallo"><i class="hoja h1"></i><i class="hoja h2"></i></div><div class="sombra"></div></div>
+    <div class="flor f5" onclick="sorpresa(this)"><div class="cabeza"><i class="petalo p1"></i><i class="petalo p2"></i><i class="petalo p3"></i><i class="petalo p4"></i><i class="petalo p5"></i><i class="petalo p6"></i><i class="petalo p7"></i><i class="petalo p8"></i><i class="centro"><i class="semillas"></i></i></div><div class="tallo"><i class="hoja h1"></i><i class="hoja h2"></i></div><div class="sombra"></div></div>
+    <div class="flor f6" onclick="sorpresa(this)"><div class="cabeza"><i class="petalo p1"></i><i class="petalo p2"></i><i class="petalo p3"></i><i class="petalo p4"></i><i class="petalo p5"></i><i class="petalo p6"></i><i class="petalo p7"></i><i class="petalo p8"></i><i class="centro"><i class="semillas"></i></i></div><div class="tallo"><i class="hoja h1"></i><i class="hoja h2"></i></div><div class="sombra"></div></div>
+    <div class="flor f7" onclick="sorpresa(this)"><div class="cabeza"><i class="petalo p1"></i><i class="petalo p2"></i><i class="petalo p3"></i><i class="petalo p4"></i><i class="petalo p5"></i><i class="petalo p6"></i><i class="petalo p7"></i><i class="petalo p8"></i><i class="centro"><i class="semillas"></i></i></div><div class="tallo"><i class="hoja h1"></i><i class="hoja h2"></i></div><div class="sombra"></div></div>
+    <div class="flor f8" onclick="sorpresa(this)"><div class="cabeza"><i class="petalo p1"></i><i class="petalo p2"></i><i class="petalo p3"></i><i class="petalo p4"></i><i class="petalo p5"></i><i class="petalo p6"></i><i class="petalo p7"></i><i class="petalo p8"></i><i class="centro"><i class="semillas"></i></i></div><div class="tallo"><i class="hoja h1"></i><i class="hoja h2"></i></div><div class="sombra"></div></div>
+    <div class="flor f9" onclick="sorpresa(this)"><div class="cabeza"><i class="petalo p1"></i><i class="petalo p2"></i><i class="petalo p3"></i><i class="petalo p4"></i><i class="petalo p5"></i><i class="petalo p6"></i><i class="petalo p7"></i><i class="petalo p8"></i><i class="centro"><i class="semillas"></i></i></div><div class="tallo"><i class="hoja h1"></i><i class="hoja h2"></i></div><div class="sombra"></div></div>
+  </div>
 
-    <div class="contenedor">
-        <h1 id="titulo">¡Toca las flores amarillas! 🌻✨</h1>
-        
-        <!-- Al tocar cualquier parte del jardín se activa la magia -->
-        <div class="jardin" onclick="revelarJardin()">
-            
-            <!-- Flor Izquierda -->
-            <div class="flor-completa">
-                <div class="cabeza-flor">
-                    <div class="centro"></div>
-                    <div class="petalo p1"></div><div class="petalo p2"></div>
-                    <div class="petalo p3"></div><div class="petalo p4"></div>
-                    <div class="petalo p5"></div><div class="petalo p6"></div>
-                    <div class="petalo p7"></div><div class="petalo p8"></div>
-                </div>
-                <div class="tallo"><div class="hoja hoja-izq"></div></div>
-            </div>
+  <div class="hint">🌻 Toca las flores y deja que empiece la sorpresa 💛</div>
 
-            <!-- Flor Central (Más grande) -->
-            <div class="flor-completa">
-                <div class="cabeza-flor">
-                    <div class="centro"></div>
-                    <div class="petalo p1"></div><div class="petalo p2"></div>
-                    <div class="petalo p3"></div><div class="petalo p4"></div>
-                    <div class="petalo p5"></div><div class="petalo p6"></div>
-                    <div class="petalo p7"></div><div class="petalo p8"></div>
-                </div>
-                <div class="tallo">
-                    <div class="hoja hoja-izq"></div>
-                    <div class="hoja hoja-der"></div>
-                </div>
-            </div>
+  <div class="carta" id="carta">
+    <div class="flor-icon">🌻✨</div>
+    <p>Lizethhh 🌼 una flor amarilla virtual porque me acordé de ti 😌. Aunque eres un poquito loquita, ya acepté eso… tengo mis medidas de contingencia jajajaja 😂.</p>
+    <small>Espero que te haya gustado 💛✨</small>
+  </div>
 
-            <!-- Flor Derecha -->
-            <div class="flor-completa">
-                <div class="cabeza-flor">
-                    <div class="centro"></div>
-                    <div class="petalo p1"></div><div class="petalo p2"></div>
-                    <div class="petalo p3"></div><div class="petalo p4"></div>
-                    <div class="petalo p5"></div><div class="petalo p6"></div>
-                    <div class="petalo p7"></div><div class="petalo p8"></div>
-                </div>
-                <div class="tallo"><div class="hoja hoja-der"></div></div>
-            </div>
+  <button class="musica" id="btnMusica" onclick="toggleMusica()">🔊 Flores Amarillas</button>
+  <audio id="musica" loop preload="auto">
+    <source src="flores-amarillas.mp3" type="audio/mpeg">
+  </audio>
+</div>
 
-        </div>
-
-        <!-- Mensaje en pantalla -->
-        <div class="tarjeta-mensaje" id="carta">
-            <p>"Lizethhh 🌻🌻 unas flores amarillas virtuales porque me acordé de ti 😌. Aunque eres un poquito loquita y fallaa jajajaj, ya acepté eso…y tengo mis medidas de contingencia jajajaja 😂. Espero que te haya gustado y la proxima si sean reales 🌻✨"</p>
-        </div>
-    </div>
-
-    <script>
-        function revelarJardin() {
-            // Inicia la música al tocar las flores.
-            const musica = document.getElementById("musica");
-            musica.play().catch(error => console.log("Audio bloqueado:", error));
-            // Cambia el título principal
-            document.getElementById("titulo").innerText = "¡Para Lizeth!🌻🌻 ";
-            
-            // Muestra la carta
-            document.getElementById("carta").style.display = "block";
-            
-            // Crea explosión de pétalos y corazones flotantes
-            for (let i = 0; i < 30; i++) {
-                crearParticula();
-            }
-        }
-
-        function crearParticula() {
-            const particula = document.createElement('div');
-            particula.classList.add('particula');
-            
-            // Mezcla entre corazones y pétalos amarillos
-            const tipos = ['💛', '🌻', '✨','🐝'];
-            particula.innerText = tipos[Math.floor(Math.random() * tipos.length)];
-            
-            // Posición y tamaño aleatorio
-            particula.style.left = Math.random() * 100 + "vw";
-            particula.style.top = (Math.random() * -20) + "px";
-            particula.style.fontSize = (Math.random() * 20 + 15) + "px";
-            
-            // Velocidad aleatoria de caída
-            particula.style.animationDuration = (Math.random() * 1.5 + 1.5) + "s";
-            
-            document.body.appendChild(particula);
-            
-            // Borra la partícula después de que termine la animación para no saturar el celular
-            setTimeout(() => {
-                particula.remove();
-            }, 2500);
-        }
-    </script>
-
+<script>
+const musica=document.getElementById("musica");
+function sorpresa(){
+  document.getElementById("titulo").innerText="¡Para Lizeth! 💛🌻";
+  document.getElementById("carta").classList.add("visible");
+  musica.play().then(()=>{
+    document.getElementById("btnMusica").innerText="🔊 Flores Amarillas";
+  }).catch(()=>{});
+  crearEfectos();
+}
+function toggleMusica(){
+  const b=document.getElementById("btnMusica");
+  if(musica.paused){
+    musica.play().then(()=>b.innerText="🔊 Flores Amarillas").catch(()=>{});
+  }else{
+    musica.pause();b.innerText="🔇 Música pausada";
+  }
+}
+function crearEfectos(){
+  const scene=document.getElementById("scene");
+  for(let i=0;i<32;i++){
+    const p=document.createElement("div");
+    p.className="brillo";
+    p.style.left=(10+Math.random()*80)+"%";
+    p.style.top=(42+Math.random()*35)+"%";
+    p.style.animationDelay=(Math.random()*1.8)+"s";
+    p.style.animationDuration=(3+Math.random()*3)+"s";
+    scene.appendChild(p);setTimeout(()=>p.remove(),6500);
+  }
+  for(let i=0;i<16;i++){
+    const c=document.createElement("div");
+    c.className="corazon";c.innerText=Math.random()>.5?"💛":"✨";
+    c.style.left=(15+Math.random()*70)+"%";
+    c.style.top=(55+Math.random()*25)+"%";
+    c.style.animationDelay=(Math.random()*1.5)+"s";
+    c.style.animationDuration=(3.5+Math.random()*2)+"s";
+    scene.appendChild(c);setTimeout(()=>c.remove(),6500);
+  }
+  for(let i=0;i<12;i++){
+    const p=document.createElement("div");
+    p.className="petalo-caido";p.innerText="🌼";
+    p.style.left=(15+Math.random()*70)+"%";
+    p.style.top=(30+Math.random()*25)+"%";
+    p.style.animationDelay=(Math.random()*1.2)+"s";
+    scene.appendChild(p);setTimeout(()=>p.remove(),6500);
+  }
+}
+</script>
 </body>
 </html>
