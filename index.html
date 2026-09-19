@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un Jardín para Lizeth</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #fffde7 0%, #fff9c4 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .contenedor {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 2;
+        }
+
+        h1 {
+            color: #f57c00;
+            font-size: 26px;
+            margin: 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            animation: latido 2s infinite;
+        }
+
+        /* JARDÍN DE FLORES */
+        .jardin {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 40px;
+            height: 280px;
+            margin-top: 30px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Flor Elaborada Individual */
+        .flor-completa {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform-origin: bottom center;
+        }
+
+        .flor-completa:nth-child(1) { animation: balanceo 4s ease-in-out infinite; }
+        .flor-completa:nth-child(2) { animation: balanceo 3.5s ease-in-out infinite reverse; transform: scale(1.1); }
+        .flor-completa:nth-child(3) { animation: balanceo 4.5s ease-in-out infinite; transform: scale(0.9); }
+
+        .cabeza-flor {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            transition: transform 0.3s ease;
+        }
+
+        .jardin:hover .cabeza-flor {
+            transform: rotate(15deg) scale(1.05);
+        }
+
+        .centro {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #ff6f00 0%, #e65100 100%);
+            border-radius: 50%;
+            z-index: 10;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Pétalos con degradados y sombras 3D */
+        .petalo {
+            position: absolute;
+            background: linear-gradient(to bottom, #ffee58 0%, #fbc02d 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            width: 30px;
+            height: 55px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .p1 { top: -25px; left: 25px; }
+        .p2 { top: -5px; right: -5px; transform: rotate(45deg); }
+        .p3 { top: 25px; right: -15px; transform: rotate(90deg); }
+        .p4 { bottom: -5px; right: -5px; transform: rotate(135deg); }
+        .p5 { bottom: -25px; left: 25px; transform: rotate(180deg); }
+        .p6 { bottom: -5px; left: -5px; transform: rotate(225deg); }
+        .p7 { top: 25px; left: -15px; transform: rotate(270deg); }
+        .p8 { top: -5px; left: -5px; transform: rotate(315deg); }
+
+        .tallo {
+            width: 8px;
+            height: 160px;
+            background: linear-gradient(to right, #4caf50, #388e3c);
+            border-radius: 4px;
+            margin-top: -10px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .hoja {
+            position: absolute;
+            background: linear-gradient(to bottom, #81c784, #4caf50);
+            width: 35px;
+            height: 18px;
+            border-radius: 50% 0 50% 0;
+            box-shadow: 1px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hoja-izq { top: 50px; left: -30px; transform: rotate(-15deg); }
+        .hoja-der { top: 80px; right: -30px; transform: rotate(195deg); }
+
+        /* TARJETA DE MENSAJE ELEGANTE */
+        .tarjeta-mensaje {
+            display: none;
+            background: white;
+            padding: 25px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(245, 124, 0, 0.15);
+            width: 90%;
+            max-width: 320px;
+            border: 2px solid #fff176;
+            animation: superAparecer 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .tarjeta-mensaje p {
+            color: #5d4037;
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 0;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        /* EFECTO DE PARTÍCULAS VOLANDO */
+        .particula {
+            position: absolute;
+            pointer-events: none;
+            z-index: 5;
+            animation: lluvia 2.5s linear forwards;
+        }
+
+        /* ANIMACIONES */
+        @keyframes balanceo {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        @keyframes latido {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        @keyframes superAparecer {
+            from { opacity: 0; transform: scale(0.5) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes lluvia {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- Música: se inicia al tocar las flores -->
+    <audio id="musica" loop preload="auto">
+        <source src="flores-amarillas.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="contenedor">
+        <h1 id="titulo">¡Toca las flores amarillas! 🌻✨</h1>
+        
+        <!-- Al tocar cualquier parte del jardín se activa la magia -->
+        <div class="jardin" onclick="revelarJardin()">
+            
+            <!-- Flor Izquierda -->
+            <div class="flor-completa">
+                <div class="cabeza-flor">
+                    <div class="centro"></div>
+                    <div class="petalo p1"></div><div class="petalo p2"></div>
+                    <div class="petalo p3"></div><div class="petalo p4"></div>
+                    <div class="petalo p5"></div><div class="petalo p6"></div>
+                    <div class="petalo p7"></div><div class="petalo p8"></div>
+                </div>
+                <div class="tallo"><div class="hoja hoja-izq"></div></div>
+            </div>
+
+            <!-- Flor Central (Más grande) -->
+            <div class="flor-completa">
+                <div class="cabeza-flor">
+                    <div class="centro"></div>
+                    <div class="petalo p1"></div><div class="petalo p2"></div>
+                    <div class="petalo p3"></div><div class="petalo p4"></div>
+                    <div class="petalo p5"></div><div class="petalo p6"></div>
+                    <div class="petalo p7"></div><div class="petalo p8"></div>
+                </div>
+                <div class="tallo">
+                    <div class="hoja hoja-izq"></div>
+                    <div class="hoja hoja-der"></div>
+                </div>
+            </div>
+
+            <!-- Flor Derecha -->
+            <div class="flor-completa">
+                <div class="cabeza-flor">
+                    <div class="centro"></div>
+                    <div class="petalo p1"></div><div class="petalo p2"></div>
+                    <div class="petalo p3"></div><div class="petalo p4"></div>
+                    <div class="petalo p5"></div><div class="petalo p6"></div>
+                    <div class="petalo p7"></div><div class="petalo p8"></div>
+                </div>
+                <div class="tallo"><div class="hoja hoja-der"></div></div>
+            </div>
+
+        </div>
+
+        <!-- Mensaje en pantalla -->
+        <div class="tarjeta-mensaje" id="carta">
+            <p>"Lizethhh 🌼 una flor amarilla virtual porque me acordé de ti 😌. Aunque eres un poquito loquita, ya acepté eso… tengo mis medidas de contingencia jajajaja 😂. Espero que te haya gustado y la proxima si sean reales 💛✨"</p>
+        </div>
+    </div>
+
+    <script>
+        function revelarJardin() {
+            // Inicia la música al tocar las flores.
+            const musica = document.getElementById("musica");
+            musica.play().catch(error => console.log("Audio bloqueado:", error));
+            // Cambia el título principal
+            document.getElementById("titulo").innerText = "¡Para Lizeth! 💛";
+            
+            // Muestra la carta
+            document.getElementById("carta").style.display = "block";
+            
+            // Crea explosión de pétalos y corazones flotantes
+            for (let i = 0; i < 30; i++) {
+                crearParticula();
+            }
+        }
+
+        function crearParticula() {
+            const particula = document.createElement('div');
+            particula.classList.add('particula');
+            
+            // Mezcla entre corazones y pétalos amarillos
+            const tipos = ['💛', '🌻', '✨','😌'];
+            particula.innerText = tipos[Math.floor(Math.random() * tipos.length)];
+            
+            // Posición y tamaño aleatorio
+            particula.style.left = Math.random() * 100 + "vw";
+            particula.style.top = (Math.random() * -20) + "px";
+            particula.style.fontSize = (Math.random() * 20 + 15) + "px";
+            
+            // Velocidad aleatoria de caída
+            particula.style.animationDuration = (Math.random() * 1.5 + 1.5) + "s";
+            
+            document.body.appendChild(particula);
+            
+            // Borra la partícula después de que termine la animación para no saturar el celular
+            setTimeout(() => {
+                particula.remove();
+            }, 2500);
+        }
+    </script>
+
+</body>
+</html>
