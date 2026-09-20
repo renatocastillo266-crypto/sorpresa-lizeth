@@ -10,9 +10,9 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden}
 body{
   font-family:Arial,sans-serif;
   background:
-    radial-gradient(circle at 50% 18%,rgba(255,244,170,.95) 0%,rgba(255,224,112,.35) 18%,transparent 38%),
-    radial-gradient(circle at 15% 65%,rgba(255,235,145,.28),transparent 28%),
-    linear-gradient(180deg,#8ed3e8 0%,#b9e5e9 27%,#f8e7ad 55%,#c8df91 78%,#60994b 100%);
+    radial-gradient(circle at 72% 13%,rgba(255,252,205,.98) 0%,rgba(255,220,105,.58) 9%,rgba(255,183,48,.20) 20%,transparent 34%),
+    radial-gradient(ellipse at 50% 42%,rgba(255,235,168,.34),transparent 48%),
+    linear-gradient(180deg,#5fa9d0 0%,#9fd5df 24%,#f5d89b 48%,#f4c977 57%,#a9ca72 72%,#4b8b45 100%);
 }
 .scene{position:relative;width:100%;height:100vh;overflow:hidden;perspective:1100px}
 .sun{
@@ -24,6 +24,52 @@ body{
     0 0 90px rgba(255,193,7,.55),
     0 0 150px rgba(255,224,120,.28);
   animation:pulse 4s ease-in-out infinite;
+}
+/* Fondo panorámico mejorado */
+.sun-rays{
+  position:absolute;z-index:1;top:-7%;right:-3%;width:360px;height:360px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,244,174,.42) 0 20%,rgba(255,205,72,.18) 35%,transparent 70%);
+  filter:blur(8px);pointer-events:none;
+}
+.distant-hills{
+  position:absolute;z-index:3;left:-8%;bottom:28%;width:116%;height:24%;
+  background:
+    linear-gradient(155deg,transparent 0 8%,rgba(83,116,79,.34) 8% 22%,transparent 22%),
+    linear-gradient(25deg,transparent 0 35%,rgba(91,126,80,.30) 35% 51%,transparent 51%);
+  clip-path:polygon(0 100%,0 65%,12% 42%,22% 63%,34% 25%,47% 59%,60% 32%,73% 60%,84% 38%,100% 63%,100% 100%);
+  filter:blur(1px);
+}
+
+.cerros{
+  position:absolute;z-index:5;left:-8%;bottom:25%;width:116%;height:29%;
+  pointer-events:none;
+  background:
+    linear-gradient(145deg,transparent 0 7%,rgba(91,120,78,.55) 7% 20%,transparent 20%),
+    linear-gradient(135deg,transparent 0 22%,rgba(108,137,82,.48) 22% 38%,transparent 38%),
+    linear-gradient(150deg,transparent 0 43%,rgba(76,112,73,.52) 43% 61%,transparent 61%),
+    linear-gradient(130deg,transparent 0 61%,rgba(125,150,91,.42) 61% 78%,transparent 78%);
+  clip-path:polygon(
+    0 100%,0 70%,9% 48%,18% 65%,29% 30%,39% 62%,
+    51% 23%,62% 60%,73% 36%,84% 66%,94% 43%,100% 61%,100% 100%
+  );
+  filter:blur(.3px);
+  opacity:.9;
+}
+.cerros-lejanos{
+  position:absolute;z-index:4;left:-10%;bottom:31%;width:120%;height:22%;
+  background:linear-gradient(180deg,rgba(180,190,143,.25),rgba(106,133,91,.28));
+  clip-path:polygon(
+    0 100%,0 65%,12% 48%,23% 66%,35% 37%,48% 62%,
+    61% 40%,74% 67%,87% 45%,100% 62%,100% 100%
+  );
+  filter:blur(2px);
+}
+
+.light-haze{
+  position:absolute;z-index:4;left:-10%;bottom:27%;width:120%;height:23%;
+  background:linear-gradient(180deg,transparent,rgba(255,246,207,.25),rgba(255,255,255,.10),transparent);
+  filter:blur(14px);pointer-events:none;
 }
 .cloud{
   position:absolute;width:145px;height:38px;border-radius:50px;
@@ -222,6 +268,7 @@ body{
   color:#795548;border-radius:999px;padding:9px 13px;cursor:pointer;
   backdrop-filter:blur(6px);font-size:12px;
 }
+
 .hint{
   position:absolute;z-index:40;bottom:4%;left:50%;transform:translateX(-50%);
   color:#fff;font-size:13px;text-shadow:0 2px 5px #31552c;white-space:nowrap;
@@ -246,11 +293,16 @@ body{
 <body>
 <div class="scene" id="scene">
   <div class="sun"></div>
+  <div class="sun-rays"></div>
+  <div class="distant-hills"></div>
+  <div class="light-haze"></div>
   <div class="cloud"></div><div class="cloud c2"></div>
 
   <div class="titulo" id="titulo">¡Para Lizeth! 🌻🌻</div>
   <div class="subtitulo">Toca una flor amarilla... tengo algo para ti 🌻✨</div>
   <div class="atmosfera"></div>
+  <div class="cerros-lejanos"></div>
+  <div class="cerros"></div>
   <div class="pradera"></div>
 
   <div class="jardin">
@@ -265,15 +317,14 @@ body{
     <div class="flor f9" onclick="sorpresa(this)"><div class="cabeza"><i class="petalo p1"></i><i class="petalo p2"></i><i class="petalo p3"></i><i class="petalo p4"></i><i class="petalo p5"></i><i class="petalo p6"></i><i class="petalo p7"></i><i class="petalo p8"></i><i class="centro"><i class="semillas"></i></i></div><div class="tallo"><i class="hoja h1"></i><i class="hoja h2"></i></div><div class="sombra"></div></div>
   </div>
 
-  <div class="hint">🌻 Toca las flores y deja que empiece la sorpresa 💛</div>
+  <div class="hint">🌻 Toca los girasoles y descubre la sorpresa 🌻</div>
 
   <div class="carta" id="carta">
     <div class="flor-icon">🌻✨</div>
     <p>Lizethhhh 🌻 aquí está la sorpresita que te prometí. Unas flores amarillas para ti… aunque no sé de dónde saco tanta paciencia contigo jajajaja. Eres medio loquita y misteriosa, pero bueno… creo que justamente ahí está tu encanto 😏. Esta vez son virtuales… las de verdad llegarán a su tiempo 😉🌻.</p>
     <small>Espero que te haya gustado 💛✨</small>
   </div>
-
-  <button class="musica" id="btnMusica" onclick="toggleMusica()">🔊 Flores Amarillas</button>
+<button class="musica" id="btnMusica" onclick="toggleMusica()">🔊 Flores Amarillas</button>
   <audio id="musica" loop preload="auto">
     <source src="flores-amarillas.mp3" type="audio/mpeg">
   </audio>
@@ -289,6 +340,17 @@ function sorpresa(){
   }).catch(()=>{});
   crearEfectos();
 }
+function repetirSorpresa(){
+  const carta=document.getElementById("carta");
+  carta.classList.remove("visible");
+  void carta.offsetWidth;
+  carta.classList.add("visible");
+  crearEfectos();
+  musica.play().then(()=>{
+    document.getElementById("btnMusica").innerText="🔊 Flores Amarillas";
+  }).catch(()=>{});
+}
+
 function toggleMusica(){
   const b=document.getElementById("btnMusica");
   if(musica.paused){
